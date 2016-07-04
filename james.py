@@ -5,7 +5,7 @@ import json
 
 
 def main():
-    print trello_connect.get_board()
+    trello_connect.get_items()
 
 
 main()
