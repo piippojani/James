@@ -10,7 +10,7 @@ def get_weather():
     data = json.loads(r.content)
     i = 1
     print ""
-    print "--- SÄÄENNUSTE ---"
+    print "*** ENNUSTE ***"
     for item in data["list"]:
         print str(item["dt_txt"]) + " " + str(math.ceil(item["main"]["temp"]-273.15)) + " " + str(item["weather"][0]["description"])
         if i == 5:

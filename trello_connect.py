@@ -11,7 +11,7 @@ def get_items():
     trello.set_token(TRELLO_TOKEN)
     lists = trello.boards.get_list(TRELLO_BOARD)
     print ""
-    print "--- TODO ---"
+    print "*** TODO ***"
     for list in lists:
         cards = trello.lists.get_card(list['id'])
         print list['name']
