@@ -6,8 +6,9 @@ import yle_connect
 
 
 def main():
-    trello_connect.get_items()
     omw_connect.get_weather()
     yle_connect.get_headlines()
+    trello_connect.get_items()
+
 
 main()

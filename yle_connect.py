@@ -9,6 +9,7 @@ def get_headlines():
     root = ET.fromstring(str(r.content))
     i = 1
     print ""
+    print "--- PÄÄUUTISET ---"
     for item in root.iter("item"):
         print item[0].text
         if i == 10:
