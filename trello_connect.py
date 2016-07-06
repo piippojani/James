@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import json
 from trello import TrelloApi
 
 
@@ -10,7 +9,9 @@ def get_items():
     TRELLO_BOARD = open('./conf/board.txt', 'r').read().strip('\n')
     trello = TrelloApi(TRELLO_APP_KEY)
     trello.set_token(TRELLO_TOKEN)
-    for list in trello.boards.get_list(TRELLO_BOARD):
+    lists = trello.boards.get_list(TRELLO_BOARD)
+    for list in lists:
+        cards = trello.lists.get_card(list['id'])
         print list['name']
-        for card in trello.lists.get_card(list['id']):
+        for card in cards:
             print "  " + card['name']
