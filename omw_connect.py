@@ -5,6 +5,8 @@ import requests
 import math
 import time
 
+DGR = u'\N{DEGREE SIGN}'
+
 
 def json_load_byteified(file_handle):
     return _byteify(
@@ -48,14 +50,14 @@ def get_weather():
     forecast = json_loads_byteified(f.content)
     i = 1
     data = []
-    temp = [current["weather"][0]["description"],
-            int(math.ceil(current["main"]["temp"])),
-            "Nyt"]
+    temp = [str(int(math.ceil(current["main"]["temp"])))+DGR+"C",
+            current["weather"][0]["description"],
+            ""]
     data.append(temp)
     for item in forecast["list"]:
-        temp = [item["weather"][0]["description"],
-                int(math.ceil(item["main"]["temp"])),
-                time.strftime("%H:%M", time.localtime(item["dt"]))]
+        temp = [time.strftime("%H:%M", time.localtime(item["dt"])),
+                str(int(math.ceil(item["main"]["temp"])))+DGR+"C",
+                item["weather"][0]["description"]]
         data.append(temp)
         if i == 5:
             break
