@@ -13,7 +13,7 @@ def get_headlines():
     data = []
     for item in root.iter("item"):
         data.append(item[0].text)
-        if i == 10:
+        if i == 5:
             break
         else:
             i += 1

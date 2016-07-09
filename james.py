@@ -1,10 +1,14 @@
 #!/usr/bin/python
 
 from Tkinter import *
+import requests
+import os.path
+from PIL import Image, ImageTk
 
 import trello_connect
 import omw_connect
 import yle_connect
+
 
 class Application(Frame):
     def say_hi(self):
@@ -34,34 +38,57 @@ class Application(Frame):
         self.weather = Label(self)
         self.news = Label(self)
         self.todos = Label(self)
-        self.data = Datastructure()
         self.pack()
         self.createWidgets()
 
 
-class Datastructure():
-    def __init__(self):
-        self.omw_data = omw_connect.get_weather()
-        self.yle_data = yle_connect.get_headlines()
-        self.trello_data = trello_connect.get_items()
-
-    def get_weather(self):
-        return self.omw_data
-
-    def get_news(self):
-        return self.yle_data
-
-    def get_todos(self):
-        return self.trello_data
+weatherlogos = {}
 
 
 def main():
-    root = Tk()
-    root.title("James")
-    root.configure(background="black", height="600", width="800")
-    app = Application(master=root)
-    app.mainloop()
-    root.destroy()
+    APPNAME = "JAMES"
+    MF_WIDTH = 800
+    MF_HEIGHT = 600
+
+    win = Tk(baseName=APPNAME)
+    win.wm_title(APPNAME)
+
+    mf = Frame(win)
+    mf.pack_propagate(False)
+
+    mf.grid(row=0, column=0)
+
+    cur_weather_f = Frame(mf)
+    cur_weather_f.grid(row=1, column=0, sticky="W")
+    weatherdata = omw_connect.get_weather()
+    for r1 in range(0, len(weatherdata[0])):
+        Label(cur_weather_f, text=weatherdata[0][r1],
+              font=("Helvetica Neue", 12, "normal")) \
+            .grid(row=r1, column=0, sticky=W)
+    v_separator20 = Frame(mf, height=20)
+    v_separator20.grid(row=2, column=0)
+
+    weather_f = Frame(mf)
+    weather_f.grid(row=3, column=0, sticky="W")
+    for c in range(1,len(weatherdata)):
+        for r in range(0,len(weatherdata[c])):
+                Label(weather_f, text=weatherdata[c][r], font=("Helvetica Neue", 12, "normal"))\
+                      .grid(row=r, column=c, sticky=W)
+    v_separator50 = Frame(mf, height=50)
+    v_separator50.grid(row=4, column=0)
+
+    news_f = Frame(mf)
+    news_f.grid(row=5, column=0, sticky="W")
+    newsdata = yle_connect.get_headlines()
+    for r in range(len(newsdata)):
+        Label(news_f, text=newsdata[r], font=("Helvetica Neue", 12, "normal"))\
+            .grid(row=r, column=1, sticky=W)
+
+    #
+    # for item in trello_connect.get_items():
+    #     Label(text=item).pack()
+
+    mainloop()
 
 
 main()
