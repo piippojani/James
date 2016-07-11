@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from Tkinter import *
+from tkinter import *
 import requests
 import os.path
 from PIL import Image, ImageTk
@@ -9,40 +9,6 @@ import time
 import trello_connect
 import omw_connect
 import yle_connect
-
-
-
-
-class Application(Frame):
-    def say_hi(self):
-        print "hi there, everyone!"
-
-    def createWidgets(self):
-        self.weather["text"] = self.data.get_weather()
-        self.weather["bg"] = "black"
-        self.weather["fg"] = "white"
-        self.weather["font"] = ("Helvetica Neue Light", 16, "normal")
-        self.weather.pack({"side": "bottom"})
-
-        self.news["text"] = self.data.get_news()
-        self.news["bg"] = "black"
-        self.news["fg"] = "white"
-        self.news["font"] = ("Helvetica Neue Light", 16, "normal")
-        self.news.pack({"side": "bottom"})
-
-        self.todos["text"] = self.data.get_todos()
-        self.todos["bg"] = "black"
-        self.todos["fg"] = "white"
-        self.todos["font"] = ("Helvetica Neue Light", 16, "normal")
-        self.todos.pack({"side": "bottom"})
-
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
-        self.weather = Label(self)
-        self.news = Label(self)
-        self.todos = Label(self)
-        self.pack()
-        self.createWidgets()
 
 
 def main():

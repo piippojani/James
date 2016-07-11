@@ -8,7 +8,7 @@ def get_headlines():
     #threading.Timer(5.0, get_headlines).start()
     r = requests.get("http://yle.fi/uutiset/rss/paauutiset.rss")
     #print r.content
-    root = ET.fromstring(str(r.content))
+    root = ET.fromstring(r.text)
     i = 1
     data = []
     for item in root.iter("item"):
