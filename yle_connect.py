@@ -2,19 +2,13 @@
 
 import requests
 import xml.etree.ElementTree as ET
-import threading
 
 def get_headlines():
-    #threading.Timer(5.0, get_headlines).start()
     r = requests.get("http://yle.fi/uutiset/rss/paauutiset.rss")
-    #print r.content
     root = ET.fromstring(r.text)
-    i = 1
     data = []
-    for item in root.iter("item"):
+    for i, item in enumerate(root.iter("item")):
         data.append(item[0].text)
-        if i == 5:
+        if i == 4:
             break
-        else:
-            i += 1
     return data
