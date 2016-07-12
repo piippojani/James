@@ -74,6 +74,15 @@ def weather_update():
     weather_f.after(300000, weather_update)  # Update every five minutes
 
 
+def todos():
+    tododata = trello_connect.get_items()
+    for i in range(len(tododata)):
+        Label(todo_f, text=tododata[i][0],
+              font=(FONTFACE, SMALLFONT, FONTWEIGHT), fg="white", bg="black") \
+            .grid(row=i, column=0, sticky=W)
+    news_f.after(5000, todos)
+
+
 # ------------------ APP STARTS HERE ------------------
 
 
@@ -95,7 +104,7 @@ v_separator50.grid(row=2, column=0)
 v_separator50.config(bg="black")
 
 news_f = Frame(mf)
-news_f.grid(row=3, column=0, sticky="W")
+news_f.grid(row=3, column=0, sticky="NW")
 news_f.config(bg="black")
 
 h_separator100 = Frame(mf, width=100)
@@ -103,19 +112,23 @@ h_separator100.grid(row=0, column=1)
 h_separator100.config(bg="black")
 
 clock_f = Frame(mf)
-clock_f.grid(row=0, column=2, sticky=N)
+clock_f.grid(row=0, column=2, sticky=NW)
 clock_f.config(bg="black")
 clock = Label(clock_f, font=(FONTFACE, LARGEFONT, FONTWEIGHT), fg="white", bg="black")
 clock.grid(row=0, column=1, sticky=E)
 date = Label(clock_f, font=(FONTFACE, MEDIUMFONT, FONTWEIGHT), fg="white", bg="black")
 date.grid(row=1, column=0, sticky=E, columnspan=2)
 
-trello_connect.get_items()
+todo_f = Frame(mf)
+todo_f.grid(row=3, column=2, sticky="NW")
+todo_f.config(bg="black")
 
 weather_update()
 
 newsflash()
 
 tick()
+
+todos()
 
 mainloop()
