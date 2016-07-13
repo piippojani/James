@@ -36,7 +36,10 @@ WEATHER_ICON = {
 
 def get_weather():
     WU_API_KEY = open('./conf/wu-apikey.txt', 'r').read().strip('\n')
-    w = requests.get("http://api.wunderground.com/api/"+WU_API_KEY+"/conditions/hourly/forecast/lang:FI/q/pws:IFINLAND22.json")
+    w = requests.get("http://api.wunderground.com/api/" +
+                     WU_API_KEY +
+                     "/conditions/hourly/forecast/lang:FI/"
+                     "q/pws:IFINLAND22.json")
     weather = json.loads(html.unescape(w.text))
     data = []
     temp = [WEATHER_ICON[weather["current_observation"]["icon"]] +
@@ -44,7 +47,8 @@ def get_weather():
             weather["current_observation"]["weather"],
             ""]
     data.append(temp)
-    for i, item in enumerate(weather["forecast"]["simpleforecast"]["forecastday"]):
+    for i, item in enumerate(weather["forecast"]["simpleforecast"]
+                             ["forecastday"]):
         temp = [str(item["date"]["day"])+"."+str(item["date"]["month"])+".",
                 WEATHER_ICON[item["icon"]],
                 HIGH+item["high"]["celsius"],
